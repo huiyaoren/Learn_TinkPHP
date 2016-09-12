@@ -1,0 +1,53 @@
+<!--<h1>{$something}</h1>-->
+
+<link href="__PUBLIC__/css/base.css" rel="stylesheet"/>
+<table class="gridtable">
+    <tr>
+        <th>username</th>
+        <th>password</th>
+        <th>setting</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td><a href="__MODULE__/Index/insert">添加</a></td>
+    </tr>
+    <volist name="something" id="s">
+        <tr>
+            <td data-value="{$s.id}">{$s.username}</td>
+            <td data-value="{$s.id}">{$s.password}</td>
+            <td>
+                <a href="__MODULE__/Index/update/id/{$s.username}">修改</a>
+                <a href="#" onclick="data_delete(event)">删除</a>
+            </td>
+        </tr>
+
+    </volist>
+</table>
+<script src="__PUBLIC__/js/jQuery/jquery-3.1.0.min.js"></script>
+
+<script>
+    function data_delete(evt) {
+        var id = $(evt.target).parent().parent().children("td:eq(0)").text();
+        var f = confirm("确认删除");
+        if (f) {
+            $.ajax({
+                url: "__CONTROLLER__/delete",
+                type: 'post',
+                dataType:'text',
+                data: {
+                    id: id
+                },
+                success:function(data){
+                    alert(data);
+                },
+                error:function(data){
+                    console.log(data);
+                    $("body").html($("body").html()+data.responseText);
+                }
+            })
+        }
+
+    }
+
+</script>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form id="_form">
+    <br/>
+    <br/>
+    用户名：<input name="username" type="text" value=" "/>
+    <br/>
+    <br/>
+    密 码 ：<input name="password" type="password" value=""/>
+    <br/>
+    <br/>
+    <input name="id" type="hidden" value=" ">
+    <input type="button" value="添加" onclick="submit_data()"/>
+</form>
+</body>
+<script src="__PUBLIC__/js/jQuery/jquery-3.1.0.min.js"></script>
+<script>
+
+    function submit_data() {
+//        alert();
+//        var form = FormData($("#_form")[0]);
+        alert();
+        $.ajax({
+            url: "__MODULE__/Index/insert",
+            type: "post",
+            dataType: 'text',
+            data: {
+                username: $("input[name=username]").val(),
+                password: $("input[name=password]").val()
+            },
+            success: function (data) {
+                alert(data);
+            },
+            error: function (data) {
+                console.log(data);
+                $("body").html($("body").html() + data.responseText);
+            }
+
+        })
+
+
+    }
+</script>
+</html>
