@@ -12,7 +12,17 @@
         <td></td>
         <td><a href="__MODULE__/Index/insert">添加</a></td>
     </tr>
-    <volist name="something" id="s">
+    <!--<volist name="something" id="s">-->
+    <!--<tr>-->
+    <!--<td data-value="{$s.id}">{$s.username}</td>-->
+    <!--<td data-value="{$s.id}">{$s.password}</td>-->
+    <!--<td>-->
+    <!--<a href="__MODULE__/Index/update/id/{$s.username}">修改</a>-->
+    <!--<a href="#" onclick="data_delete(event)">删除</a>-->
+    <!--</td>-->
+    <!--</tr>-->
+    <!--</volist>-->
+    <volist name="list" id="s">
         <tr>
             <td data-value="{$s.id}">{$s.username}</td>
             <td data-value="{$s.id}">{$s.password}</td>
@@ -21,12 +31,29 @@
                 <a href="#" onclick="data_delete(event)">删除</a>
             </td>
         </tr>
-
     </volist>
+    <tr>
+        <td colspan="3"> {$page}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <form action="__URL__/index" enctype="multipart/form-data" method="post" >
+                <input type="text" name="name" />
+                <input type="file" name="photo" onchange="img_pre(event)"/>
+                <input type="submit" value="提交" >
+            </form>
+        </td>
+        <td><img id="_pre_img"/></td>
+    </tr>
+
 </table>
+<!--{$list}-->
+
 <script src="__PUBLIC__/js/jQuery/jquery-3.1.0.min.js"></script>
 
 <script>
+    // 刪除數據
     function data_delete(evt) {
         var id = $(evt.target).parent().parent().children("td:eq(0)").text();
         var f = confirm("确认删除");
@@ -34,19 +61,23 @@
             $.ajax({
                 url: "__CONTROLLER__/delete",
                 type: 'post',
-                dataType:'text',
+                dataType: 'text',
                 data: {
                     id: id
                 },
-                success:function(data){
+                success: function (data) {
                     alert(data);
                 },
-                error:function(data){
+                error: function (data) {
                     console.log(data);
-                    $("body").html($("body").html()+data.responseText);
+                    $("body").html($("body").html() + data.responseText);
                 }
             })
         }
+
+    }
+
+    function img_pre(evt){
 
     }
 

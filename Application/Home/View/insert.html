@@ -24,7 +24,6 @@
     function submit_data() {
 //        alert();
 //        var form = FormData($("#_form")[0]);
-        alert();
         $.ajax({
             url: "__MODULE__/Index/insert",
             type: "post",
@@ -35,8 +34,11 @@
             },
             success: function (data) {
                 alert(data);
+//                $("body").html($("body").html()+data.responseText);
+
             },
             error: function (data) {
+                alert(data);
                 console.log(data);
                 $("body").html($("body").html() + data.responseText);
             }
