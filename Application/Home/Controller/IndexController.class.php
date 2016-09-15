@@ -2,8 +2,9 @@
 namespace Home\Controller;
 
 use Think\Controller;
+use Think\Controller\RestController;
 
-class IndexController extends Controller
+class IndexController extends RestController
 {
     public function index()
     {
